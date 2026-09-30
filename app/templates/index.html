@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitBuddy | AI Fitness Plan Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+</head>
+<body class="home-page">
+<div class="overlay"></div>
+<header class="topbar">
+    <div class="brand">Fit<span>Buddy</span></div>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/view-all-users">Admin View</a>
+        <a href="/docs">API Docs</a>
+    </nav>
+</header>
+
+<main class="hero">
+    <section class="intro">
+        <p class="eyebrow">AI FITNESS PLAN GENERATOR</p>
+        <h1>Build your <span>7-day</span> fitness plan with AI.</h1>
+        <p class="lead">Enter your basic fitness details and FitBuddy will generate a personalized workout plan plus a practical nutrition or recovery tip.</p>
+        <div class="mini-cards">
+            <div><strong>7 Days</strong><small>Structured plan</small></div>
+            <div><strong>AI</strong><small>Gemini powered</small></div>
+            <div><strong>Feedback</strong><small>Plan updates</small></div>
+        </div>
+    </section>
+
+    <section class="card form-card">
+        <h2>Tell us about you</h2>
+        <p class="muted">All fields are required.</p>
+        <form action="/generate-workout" method="post">
+            <label>Name
+                <input type="text" name="username" placeholder="Enter your name" required>
+            </label>
+
+            <label>User ID
+                <input type="text" name="user_id" placeholder="e.g. FB001" required>
+            </label>
+
+            <div class="grid-2">
+                <label>Age
+                    <input type="number" name="age" min="13" max="100" placeholder="21" required>
+                </label>
+                <label>Weight (kg)
+                    <input type="number" name="weight" min="20" max="500" step="0.1" placeholder="60" required>
+                </label>
+            </div>
+
+            <label>Fitness Goal
+                <select name="goal" required>
+                    <option value="">Select your goal</option>
+                    <option value="weight loss">Weight Loss</option>
+                    <option value="muscle gain">Muscle Gain</option>
+                    <option value="general wellness">General Wellness</option>
+                    <option value="flexibility">Flexibility</option>
+                    <option value="endurance">Endurance</option>
+                </select>
+            </label>
+
+            <label>Workout Intensity
+                <select name="intensity" required>
+                    <option value="">Select intensity</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </label>
+
+            <button class="primary-btn" type="submit">Generate My Plan →</button>
+        </form>
+    </section>
+</main>
+<footer>FitBuddy • FastAPI • Gemini • SQLite</footer>
+</body>
+</html>

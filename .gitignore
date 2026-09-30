@@ -1,0 +1,10 @@
+venv/
+.venv/
+fitbuddy-env/
+__pycache__/
+*.py[cod]
+*.db
+.env
+.idea/
+.vscode/
+.DS_Store

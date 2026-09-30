@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitBuddy | Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+</head>
+<body>
+<header class="topbar simple">
+    <div class="brand">Fit<span>Buddy</span></div>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/docs">API Docs</a>
+    </nav>
+</header>
+
+<main class="container wide">
+    <section class="page-heading">
+        <p class="eyebrow">ADMIN / COACH DASHBOARD</p>
+        <h1>All Registered Users</h1>
+        <p class="muted">Review user details, original plans, feedback, and updated plans.</p>
+    </section>
+
+    {% if users %}
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Weight</th>
+                    <th>Goal</th>
+                    <th>Intensity</th>
+                    <th>Original Plan</th>
+                    <th>Feedback</th>
+                    <th>Updated Plan</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.user_id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.age }}</td>
+                    <td>{{ user.weight }} kg</td>
+                    <td>{{ user.goal }}</td>
+                    <td>{{ user.intensity }}</td>
+                    <td><details><summary>View</summary><pre class="table-plan">{{ user.original_plan }}</pre></details></td>
+                    <td>{{ user.feedback or "—" }}</td>
+                    <td>
+                        {% if user.updated_plan %}
+                        <details><summary>View</summary><pre class="table-plan">{{ user.updated_plan }}</pre></details>
+                        {% else %}—{% endif %}
+                    </td>
+                    <td>
+                        <form action="/delete-user" method="post" onsubmit="return confirm('Delete this user and their plans?');">
+                            <input type="hidden" name="user_id" value="{{ user.user_id }}">
+                            <button class="danger-btn" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="card empty">
+        <h2>No users yet</h2>
+        <p>Create a plan from the home page.</p>
+        <a class="primary-btn inline-btn" href="/">Create First Plan</a>
+    </div>
+    {% endif %}
+</main>
+</body>
+</html>
